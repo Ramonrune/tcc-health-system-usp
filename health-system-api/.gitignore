@@ -1,0 +1,11 @@
+venv
+venv/*
+.serverless
+.serverless/*
+__pycache__
+__pycache__/*
+.vscode
+.vscode/*
+*.sh
+run_hml.sh
+run_prd.sh

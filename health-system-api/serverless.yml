@@ -1,0 +1,67 @@
+service: health-system-api
+useDotenv: true
+
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: python3.10
+  lambdaHashingVersion: 20201221
+  region: us-east-1
+  memorySize: 512
+  stage: prd
+  timeout: 300
+  environment:
+    DATABASE_URL: ${ssm:/health-system-api/${opt:stage, self:provider.stage}/DATABASE_URL}
+
+custom:
+  wsgi:
+    app: app.app
+    packRequirements: false
+  vpc:
+    securityGroupIds:
+      - To be configured
+    subnetIds:
+      - To be configured
+
+functions:
+  app:
+    handler: wsgi.handler
+    vpc: ${self:custom.vpc}
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Startlower
+              - Text
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Startlower
+              - Text
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin

@@ -1,0 +1,136 @@
+// app global css in SCSS form
+.login-card {
+  width: 500px;
+  background-color: white;
+  padding: 32px;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+
+.otp-input {
+  width: 54px;
+  height: 50px;
+  padding: 5px;
+  margin: 0 10px;
+  font-size: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* Background colour of an input field with value */
+.otp-input.is-complete {
+  background-color: #e4e4e4;
+}
+
+.otp-input::-webkit-inner-spin-button,
+.otp-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.logo {
+  color: black;
+  text-decoration: auto;
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 22px;
+}
+
+.table-custom {
+  width: 100%;
+  height: calc(100vh - 210px);
+  border-radius: 10px;
+
+  .q-table__top {
+    padding: 0;
+  }
+}
+
+.table-sticky-header {
+  thead tr th {
+    position: sticky;
+    z-index: 1;
+  }
+
+  thead tr:first-child th {
+    top: 0;
+    background-color: #f5f5f5;
+  }
+}
+
+.q-table thead tr,
+.q-table tbody td {
+  height: 0px !important;
+}
+
+.custom-table {
+  // fixed last 2 columns
+
+  thead tr {
+    #details,
+    #actions {
+      top: 0;
+      opacity: 1;
+      background-color: white;
+      z-index: 999 !important;
+    }
+  }
+
+  .details-field,
+  #details {
+    position: sticky;
+    -webkit-position: sticky;
+    right: 65px;
+    z-index: 1;
+    background: #f7f7f7 !important;
+  }
+
+  .actions-field,
+  #actions {
+    position: sticky;
+    -webkit-position: sticky;
+    right: 0;
+    z-index: 1;
+    background: #f7f7f7 !important;
+  }
+}
+
+.dialog-center {
+  width: 100%;
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 0px !important;
+  flex: 1;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px !important;
+  margin-top: 58px;
+}
+
+.dialog-right {
+  width: 100%;
+  background-color: #fff;
+  padding: 24px;
+  height: 100%;
+  border-radius: 0px !important;
+  flex: 1;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 16px !important;
+  border-bottom-left-radius: 16px !important;
+  margin-top: 58px;
+}
+
+.q-btn .q-icon,
+.q-btn .q-spinner {
+  font-size: 14px;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
