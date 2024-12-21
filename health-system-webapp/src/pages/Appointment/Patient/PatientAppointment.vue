@@ -20,7 +20,8 @@
       row-key="id"
       :onDeleteItem="onDeleteItem"
       :onUpdateItem="onUpdateItem"
-      :actionColumns="['edit', 'remove']"
+      :onViewItem="onViewItem"
+      :actionColumns="['view', 'edit', 'remove']"
     />
 
     <PatientAppointmentDialog
@@ -28,6 +29,13 @@
       v-model="openModal"
       :onClose="handleClose"
       :onSuccess="onSuccess"
+      :id="idUpdate"
+    />
+
+    <PatientAppointmentAnalyseDialog
+      v-if="openAnalyzeModal"
+      v-model="openAnalyzeModal"
+      :onClose="handleCloseAnalyze"
       :id="idUpdate"
     />
   </div>
@@ -44,6 +52,7 @@ import { showNegativeNotify, showPositiveNotify } from "src/util/plugins";
 import { useQuasar } from "quasar";
 import { getPatientAppointments, remove } from "src/service/AppointmentService";
 import BaseRefreshButton from "src/components/BaseRefreshButton.vue";
+import PatientAppointmentAnalyseDialog from "./PatientAppointmentAnalyseDialog.vue";
 
 defineOptions({
   name: "PatientAppointment",
@@ -92,6 +101,7 @@ const tableColumns = ref([
 ]);
 
 const openModal = ref(false);
+const openAnalyzeModal = ref(false);
 const handleAdd = () => {
   openModal.value = true;
 };
@@ -99,6 +109,11 @@ const handleAdd = () => {
 const handleClose = () => {
   idUpdate.value = null;
   openModal.value = false;
+};
+
+const handleCloseAnalyze = () => {
+  idUpdate.value = null;
+  openAnalyzeModal.value = false;
 };
 
 const onSuccess = async () => {
@@ -119,6 +134,12 @@ const refresh = async () => {
 };
 
 const q = useQuasar();
+
+const onViewItem = (row) => {
+  idUpdate.value = row.appointment_id;
+
+  openAnalyzeModal.value = true;
+};
 
 const onDeleteItem = (row) => {
   q.dialog({

@@ -1,7 +1,7 @@
 <script setup>
 import { Recogito } from "@recogito/recogito-js";
 import "@recogito/recogito-js/dist/recogito.min.css";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, readonly, ref, watch } from "vue";
 
 const content = ref(null);
 const props = defineProps({
@@ -11,55 +11,26 @@ const props = defineProps({
   },
   annotations: {
     type: Array,
-    default: () => [
-      {
-        "@context": "http://www.w3.org/ns/anno.jsonld",
-        type: "Annotation",
-        body: [
-          {
-            type: "TextualBody",
-            value: "aaaa",
-            purpose: "commenting",
-          },
-        ],
-        target: {
-          selector: [
-            {
-              type: "TextQuoteSelector",
-              exact: "bem",
-            },
-            {
-              type: "TextPositionSelector",
-              start: 10,
-              end: 13,
-            },
-          ],
-        },
-        id: "#5e3f4769-f731-493e-91c1-7339a4c687d1",
-      },
-    ],
+    default: () => [],
   },
 });
 
 const emit = defineEmits(["update:annotations"]);
 
 var creatorFormatter = function (annotation) {
-  if (annotation.creator === "http://example.org/user1") {
-    return { style: "backgroundColor: red" };
-  } else if (annotation.creator === "http://example.org/user1") {
-    return { style: "backgroundColor: green" };
-  } else {
-    return { style: "backgroundColor: green" };
-  }
+  return annotation.underlying.category ? annotation.underlying.category : "";
 };
-
+const rec = ref();
 const initRecogito = () => {
   const r = new Recogito({
     content: content.value,
     locale: "pt-BR",
     widgets: [{ widget: "COMMENT" }],
     formatter: creatorFormatter,
+    readonly: true,
   });
+
+  rec.value = r;
 
   watch(
     () => props.annotations,
@@ -87,5 +58,18 @@ onMounted(initRecogito);
 </script>
 
 <template>
-  <div v-if="text" ref="content" v-html="text" />
+  <div v-if="text" ref="content" class="analyze" v-html="text" />
 </template>
+
+<style>
+.analyze {
+  line-height: 48px;
+  background: #efefef;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.r6o-editor {
+  display: none !important;
+}
+</style>

@@ -22,6 +22,13 @@ def find(id):
     return appointment_service.find(g, id)
 
 
+@appointment.route("/v1/appointment/<id>/entity", methods=["GET"])
+@validate()
+@require_token
+def find_entity(id):
+    return appointment_service.find_entity(g, id)
+
+
 @appointment.route("/v1/appointment", methods=["POST"])
 @validate()
 @require_token

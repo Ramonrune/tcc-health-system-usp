@@ -56,3 +56,11 @@ export const getAppointment = async ({ id }) => {
 
   return response.data.data;
 };
+
+export const getAppointmentEntities = async ({ id }) => {
+  const response = await get({
+    url: `/v1/appointment/${id}/entity`,
+  });
+
+  return response.data.data;
+};
