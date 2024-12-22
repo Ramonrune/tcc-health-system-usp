@@ -10,6 +10,10 @@
           </span>
         </div>
       </div>
+
+      <div class="right-content">
+        <slot name="right-content"></slot>
+      </div>
     </div>
   </div>
 </template>

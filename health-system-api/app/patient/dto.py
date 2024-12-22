@@ -21,3 +21,9 @@ class PatientUpdateDTO(BaseModel):
     blood_type: Optional[str] = Field(None, description="Blood type of the patient (e.g., O+, AB-)")
     smookes: int = Field(..., description="Whether the patient smookes (1/0)")
     
+
+
+class SendEmailDTO(BaseModel):
+    subject: str = Field(..., description="Subject")
+    html_content: str = Field(..., description="Html content")
+   

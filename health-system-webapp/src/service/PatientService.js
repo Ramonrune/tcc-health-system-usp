@@ -143,3 +143,12 @@ export const getDoctorPatients = async () => {
     };
   });
 };
+
+export const sendEmail = async ({ id, subject, html_content }) => {
+  const response = await post({
+    url: `/v1/patient/${id}/email`,
+    body: { subject, html_content },
+  });
+
+  return response.status === 200;
+};

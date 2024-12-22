@@ -15,7 +15,7 @@
     </div>
 
     <BaseTable
-      class="table-custom"
+      class="table-custom-exam"
       :rows="tableRowsTmp"
       :columns="tableColumns"
       :loading="isLoading"
@@ -182,7 +182,7 @@ onBeforeMount(async () => {
 </script>
 
 <style lang="scss">
-.table-custom {
+.table-custom-exam {
   width: 100%;
   height: calc(100vh - 250px);
   border-radius: 10px;

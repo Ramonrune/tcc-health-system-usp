@@ -12,7 +12,7 @@
     </div>
 
     <BaseTable
-      class="table-custom"
+      class="table-custom-disease"
       :rows="tableRowsTmp"
       :columns="tableColumns"
       :loading="isLoading"
@@ -166,7 +166,7 @@ onBeforeMount(async () => {
 </script>
 
 <style lang="scss">
-.table-custom {
+.table-custom-disease {
   width: 100%;
   height: calc(100vh - 250px);
   border-radius: 10px;

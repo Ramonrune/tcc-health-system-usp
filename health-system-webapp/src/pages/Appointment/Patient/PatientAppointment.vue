@@ -13,7 +13,7 @@
     </div>
 
     <BaseTable
-      class="table-custom"
+      class="table-custom-patient"
       :rows="tableRowsTmp"
       :columns="tableColumns"
       :loading="isLoading"
@@ -187,7 +187,7 @@ onBeforeMount(async () => {
 </script>
 
 <style lang="scss">
-.table-custom {
+.table-custom-patient {
   width: 100%;
   height: calc(100vh - 250px);
   border-radius: 10px;

@@ -1,10 +1,9 @@
 import uuid, os
-from sqlalchemy.exc import IntegrityError
 from app.config.infra.database import db
+from app.config.infra.email_sender import EmailSender
 from app.patient.model import Patient
 from app.patient.model import Attend
-
-from app.patient.dto import PatientCreateDTO, PatientUpdateDTO
+from app.patient.dto import PatientCreateDTO, PatientUpdateDTO, SendEmailDTO
 from app.util.response import Response
 from app.config.infra.s3 import S3
 
@@ -13,6 +12,7 @@ class PatientService:
 
     def __init__(self):
         self.s3 = S3()
+        self.email_sender = EmailSender()
 
     def register(self, g, body: PatientCreateDTO):
         patient = db.session.query(Patient).filter_by(cpf=body.cpf).first()
@@ -146,3 +146,12 @@ class PatientService:
         patients = [patient.to_dict() for patient in patients]
 
         return Response.ok(data=patients, message="Patients sucessfully found!")
+
+
+
+    def send_email(self, patient_id: str, body: SendEmailDTO):
+        patient = db.session.query(Patient).filter_by(id=patient_id).first()
+
+        self.email_sender.send_email(recipient_email=patient.email, subject=body.subject, html_content=body.html_content)
+        
+        return Response.ok(data={}, message="E-mail sucessfully sent!")

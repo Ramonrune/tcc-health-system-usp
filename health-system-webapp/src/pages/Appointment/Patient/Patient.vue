@@ -1,6 +1,19 @@
 <template>
   <div>
-    <HeaderComponent :breadcrumbs="breadcrumbs" />
+    <HeaderComponent :breadcrumbs="breadcrumbs">
+      <template v-slot:right-content>
+        <div class="q-mr-md q-pt-xs">
+          <q-icon
+            name="fa-solid fa-envelope"
+            size="24px"
+            class="cursor-pointer"
+            @click="handleSendEmail"
+          >
+            <q-tooltip>Enviar e-mail</q-tooltip>
+          </q-icon>
+        </div>
+      </template>
+    </HeaderComponent>
 
     <div class="q-pa-md">
       <q-tabs v-model="tab" align="left" no-caps dense>
@@ -17,6 +30,12 @@
       <PatientDisease v-show="tab === 'disease'" />
       <PatientAppointment v-show="tab === 'appointment'" />
     </div>
+
+    <PatientSendEmailDialog
+      v-model="openModal"
+      v-if="openModal"
+      :onClose="onClose"
+    />
   </div>
 </template>
 
@@ -29,6 +48,7 @@ import PatientExam from "./PatientExam.vue";
 import PatientMedication from "./PatientMedication.vue";
 import PatientDisease from "./PatientDisease.vue";
 import PatientAppointment from "./PatientAppointment.vue";
+import PatientSendEmailDialog from "./PatientSendEmailDialog.vue";
 
 defineOptions({
   name: "PatientPage",
@@ -42,4 +62,14 @@ const breadcrumbs = ref([
     label: patientStore.patient.name,
   },
 ]);
+
+const openModal = ref(false);
+
+const handleSendEmail = () => {
+  openModal.value = true;
+};
+
+const onClose = () => {
+  openModal.value = false;
+};
 </script>

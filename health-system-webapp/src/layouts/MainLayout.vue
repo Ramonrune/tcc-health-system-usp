@@ -2,7 +2,7 @@
   <q-layout view="hHh Lpr lFf" class="layout">
     <q-header
       class="row justify-between items-center"
-      style="padding: 12px 16px"
+      style="padding: 12px 16px; z-index: 9000"
     >
       <q-toolbar-title class="row items-center q-gutter-xs">
         <RouterLink to="/home" aria-label="home" class="logo text-white">

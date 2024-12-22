@@ -2,7 +2,7 @@ from flask import Blueprint, request, g
 from flask_pydantic import validate
 from app.config.infra.jwt import require_token
 from app.patient.service import PatientService
-from app.patient.dto import PatientCreateDTO, PatientUpdateDTO
+from app.patient.dto import PatientCreateDTO, PatientUpdateDTO, SendEmailDTO
 
 patient_service = PatientService()
 
@@ -62,3 +62,10 @@ def profile_picture_link(id):
 @require_token
 def find_doctor_patients():
     return patient_service.find_doctor_patients(g)
+
+
+@patient.route('/v1/patient/<id>/email',  methods=['POST'])
+@validate()
+@require_token
+def send_email(id, body: SendEmailDTO):
+    return patient_service.send_email(id, body)
